@@ -2,7 +2,6 @@
 
 import { useState, type ReactElement } from "react";
 import Reveal from "./Reveal";
-import { CtaButton } from "./Cta";
 import { ChevronDownIcon } from "./icons";
 
 const FAQS: { q: string; a: string }[] = [
@@ -83,9 +82,14 @@ export default function Faq(): ReactElement {
           })}
         </div>
 
-        <Reveal className="mt-12 flex justify-center">
-          <CtaButton label="Get Started" href="#get-started" withArrow />
-        </Reveal>
+        <div className="mt-12 flex flex-row flex-wrap items-center justify-center gap-4">
+          <a href="#get-started" className="rounded-full bg-navy px-7 py-3.5 text-[15px] font-semibold text-cream transition hover:bg-navy/90">
+            Get Started
+          </a>
+          <a href="#get-started" className="text-[15px] font-semibold text-navy underline underline-offset-4 hover:text-teal">
+            Learn more
+          </a>
+        </div>
       </div>
     </section>
   );

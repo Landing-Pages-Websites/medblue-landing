@@ -1,7 +1,6 @@
 import Image from "next/image";
 import type { ReactElement } from "react";
 import Reveal from "./Reveal";
-import { CtaButton } from "./Cta";
 import { UtensilsIcon, CoffeeIcon } from "./icons";
 
 const IDENTITIES: string[] = [
@@ -44,8 +43,13 @@ export default function WhoItsFor(): ReactElement {
             <p className="mt-7 text-lg font-medium text-navy">
               If that sounds like you, you&apos;re exactly who we built this for.
             </p>
-            <div className="mt-7">
-              <CtaButton label="Get Started" href="#get-started" withArrow />
+            <div className="mt-10 flex flex-row flex-wrap items-center justify-center gap-4">
+              <a href="#get-started" className="rounded-full bg-navy px-7 py-3.5 text-[15px] font-semibold text-cream transition hover:bg-navy/90">
+                Get Started
+              </a>
+              <a href="#get-started" className="text-[15px] font-semibold text-navy underline underline-offset-4 hover:text-teal">
+                Learn more
+              </a>
             </div>
           </Reveal>
 

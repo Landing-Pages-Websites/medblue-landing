@@ -1,0 +1,70 @@
+{
+  "page": "MedBlue National Plan landing page",
+  "sources": [
+    {
+      "claim": "$40 per month membership price",
+      "source_url": "https://www.medblue.com/national/benefits",
+      "verified": true
+    },
+    {
+      "claim": "$336 per year membership price",
+      "source_url": "https://www.medblue.com/national/benefits",
+      "verified": true
+    },
+    {
+      "claim": "$0 24/7 telehealth (unlimited virtual urgent care, no per-visit fee)",
+      "source_url": "https://www.medblue.com/national/benefits",
+      "verified": true
+    },
+    {
+      "claim": "$0 virtual primary care (no per-visit fee)",
+      "source_url": "https://www.medblue.com/national/benefits",
+      "verified": true
+    },
+    {
+      "claim": "Dental cleanings from $47 via the Careington network",
+      "source_url": "https://www.medblue.com/national/benefits",
+      "verified": true
+    },
+    {
+      "claim": "Lab services up to 60% off",
+      "source_url": "https://www.medblue.com/national/benefits",
+      "verified": true
+    },
+    {
+      "claim": "Diagnostic imaging up to 60% off",
+      "source_url": "https://www.medblue.com/national/benefits",
+      "verified": true
+    },
+    {
+      "claim": "Pharmacy savings up to 80% off",
+      "source_url": "https://www.medblue.com/national/benefits",
+      "verified": true
+    },
+    {
+      "claim": "Hospital bill advocacy on eligible bills over $300",
+      "source_url": "https://www.medblue.com/national/benefits",
+      "verified": true
+    },
+    {
+      "claim": "Pharmacy savings accepted at 70,000+ pharmacies nationwide",
+      "source_url": "https://www.medblue.com/national/benefits",
+      "verified": true
+    },
+    {
+      "claim": "Coverage across all 50 states and Puerto Rico",
+      "source_url": "https://www.medblue.com/national/benefits",
+      "verified": true
+    },
+    {
+      "claim": "Member benefits activate 3 days after enrollment",
+      "source_url": "https://www.medblue.com/national/benefits",
+      "verified": true
+    },
+    {
+      "claim": "Traditional insurance typical unsubsidized premiums of $4,200–$12,000 per year",
+      "source_url": "https://www.medblue.com/national/benefits",
+      "verified": false
+    }
+  ]
+}

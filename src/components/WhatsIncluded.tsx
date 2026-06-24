@@ -93,6 +93,15 @@ export default function WhatsIncluded(): ReactElement {
             Member benefits activate 3 days after enrollment.
           </p>
         </Reveal>
+
+        <div className="mt-10 flex flex-row flex-wrap items-center justify-center gap-4">
+          <a href="#get-started" className="rounded-full bg-navy px-7 py-3.5 text-[15px] font-semibold text-cream transition hover:bg-navy/90">
+            Get Started
+          </a>
+          <a href="#get-started" className="text-[15px] font-semibold text-navy underline underline-offset-4 hover:text-teal">
+            Learn more
+          </a>
+        </div>
       </div>
     </section>
   );

@@ -1,6 +1,5 @@
 import type { ReactElement } from "react";
 import Reveal from "./Reveal";
-import { CtaButton } from "./Cta";
 import { SparkleIcon, ClockIcon, HeartPulseIcon } from "./icons";
 
 const STEPS: { icon: ReactElement; title: string; body: string }[] = [
@@ -23,38 +22,43 @@ const STEPS: { icon: ReactElement; title: string; body: string }[] = [
 
 export default function HowItWorks(): ReactElement {
   return (
-    <section id="how-it-works" className="scroll-mt-24 bg-cream-deep py-20 sm:py-28">
+    <section id="how-it-works" className="scroll-mt-24 bg-navy py-20 text-cream sm:py-28">
       <div className="mx-auto max-w-[1200px] px-4 sm:px-8">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.16em] text-teal">How it works</p>
-          <h2 className="mt-4 text-4xl text-navy sm:text-5xl">
+          <p className="text-sm font-semibold uppercase tracking-[0.16em] text-teal-light">How it works</p>
+          <h2 className="mt-4 text-4xl text-cream sm:text-5xl">
             Built for real life
           </h2>
-          <p className="mt-5 text-lg leading-relaxed text-body">
+          <p className="mt-5 text-lg leading-relaxed text-cream/80">
             No jargon, no runaround. Getting started is genuinely simple — here&apos;s all there is
             to it.
           </p>
         </Reveal>
 
         <ol className="relative mt-16 grid grid-cols-1 gap-12 md:grid-cols-3 md:gap-8">
-          <div className="absolute left-0 right-0 top-9 hidden h-px bg-gradient-to-r from-transparent via-line to-transparent md:block" />
+          <div className="absolute left-0 right-0 top-9 hidden h-px bg-gradient-to-r from-transparent via-cream/15 to-transparent md:block" />
           {STEPS.map((step, i) => (
             <Reveal as="li" key={step.title} delay={i * 120} className="relative flex flex-col items-center text-center">
-              <div className="relative flex h-[76px] w-[76px] items-center justify-center rounded-2xl bg-white text-teal shadow-[0_16px_30px_-18px_rgba(8,42,60,0.5)] ring-1 ring-line">
+              <div className="relative flex h-[76px] w-[76px] items-center justify-center rounded-2xl bg-cream/10 text-teal-light shadow-[0_16px_30px_-18px_rgba(0,0,0,0.6)] ring-1 ring-cream/15">
                 {step.icon}
-                <span className="absolute -right-2 -top-2 flex h-7 w-7 items-center justify-center rounded-full bg-navy text-sm font-semibold text-cream shadow-sm ring-2 ring-cream-deep">
+                <span className="absolute -right-2 -top-2 flex h-7 w-7 items-center justify-center rounded-full bg-cream text-sm font-semibold text-navy shadow-sm ring-2 ring-navy">
                   {i + 1}
                 </span>
               </div>
-              <h3 className="mt-6 text-2xl text-navy">{step.title}</h3>
-              <p className="mt-2.5 max-w-xs leading-relaxed text-body">{step.body}</p>
+              <h3 className="mt-6 text-2xl text-cream">{step.title}</h3>
+              <p className="mt-2.5 max-w-xs leading-relaxed text-cream/80">{step.body}</p>
             </Reveal>
           ))}
         </ol>
 
-        <Reveal className="mt-14 flex justify-center">
-          <CtaButton label="Start my membership" href="#get-started" withArrow />
-        </Reveal>
+        <div className="mt-10 flex flex-row flex-wrap items-center justify-center gap-4">
+          <a href="#get-started" className="rounded-full bg-cream px-7 py-3.5 text-[15px] font-semibold text-navy transition hover:bg-white">
+            Get Started
+          </a>
+          <a href="#get-started" className="text-[15px] font-semibold text-cream underline underline-offset-4 hover:text-teal-light">
+            Learn more
+          </a>
+        </div>
       </div>
     </section>
   );

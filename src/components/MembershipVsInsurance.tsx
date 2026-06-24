@@ -1,6 +1,5 @@
 import type { ReactElement } from "react";
 import Reveal from "./Reveal";
-import { CtaButton } from "./Cta";
 import { CheckIcon } from "./icons";
 
 const MEDBLUE_POINTS: string[] = [
@@ -75,9 +74,6 @@ export default function MembershipVsInsurance(): ReactElement {
                 </li>
               ))}
             </ul>
-            <div className="mt-8">
-              <CtaButton label="Get Started" href="#get-started" withArrow />
-            </div>
           </Reveal>
         </div>
 
@@ -89,6 +85,15 @@ export default function MembershipVsInsurance(): ReactElement {
             and affordable.
           </p>
         </Reveal>
+
+        <div className="mt-10 flex flex-row flex-wrap items-center justify-center gap-4">
+          <a href="#get-started" className="rounded-full bg-cream px-7 py-3.5 text-[15px] font-semibold text-navy transition hover:bg-white">
+            Get Started
+          </a>
+          <a href="#get-started" className="text-[15px] font-semibold text-cream underline underline-offset-4 hover:text-teal-light">
+            Learn more
+          </a>
+        </div>
       </div>
     </section>
   );

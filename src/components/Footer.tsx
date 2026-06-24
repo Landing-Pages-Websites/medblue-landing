@@ -32,6 +32,25 @@ export default function Footer(): ReactElement {
             enrollment. Savings figures reflect typical member pricing through MedBlue&apos;s partner
             networks and may vary by provider and location.
           </p>
+          <p className="mt-4">
+            <a
+              href="https://www.medblue.com/national/privacy-policy"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 hover:text-cream"
+            >
+              Privacy Policy
+            </a>
+            <span className="mx-1.5 text-cream/40">·</span>
+            <a
+              href="https://www.medblue.com/national/terms-and-conditions"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 hover:text-cream"
+            >
+              Terms &amp; Conditions
+            </a>
+          </p>
         </div>
       </div>
     </footer>
