@@ -19,8 +19,7 @@ export default function Footer(): ReactElement {
               Not Insurance
             </p>
             <p className="mt-2 text-sm leading-relaxed text-cream/70">
-              MedBlue is a healthcare membership, not health insurance. It is not a substitute for
-              major medical insurance.
+              NOT INSURANCE — This is a healthcare membership, not health insurance.
             </p>
           </div>
         </div>

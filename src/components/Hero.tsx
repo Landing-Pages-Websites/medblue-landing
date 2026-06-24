@@ -27,8 +27,8 @@ export default function Hero(): ReactElement {
               Houston&apos;s National Plan membership
             </span>
             {/* MANDATORY legal disclaimer — above the fold, legible */}
-            <span className="inline-flex items-center gap-2 rounded-full bg-navy px-3.5 py-1.5 text-[13px] font-semibold text-cream">
-              Not Insurance — a healthcare membership
+            <span className="block w-full rounded-xl bg-navy px-4 py-2.5 text-[13px] font-semibold leading-snug text-cream sm:text-sm">
+              NOT INSURANCE — This is a healthcare membership, not health insurance.
             </span>
           </div>
 
