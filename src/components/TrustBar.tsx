@@ -1,25 +1,25 @@
 import type { ReactElement } from "react";
-import { ClockIcon, GlobeIcon, HeadsetIcon, PiggyBankIcon } from "./icons";
+import { VideoIcon, PillIcon, GlobeIcon, SparkleIcon } from "./icons";
 
 const ITEMS: { icon: ReactElement; stat: string; label: string }[] = [
-  { icon: <PiggyBankIcon className="h-6 w-6" />, stat: "From $189/mo", label: "Real coverage that fits a self-employed budget" },
-  { icon: <GlobeIcon className="h-6 w-6" />, stat: "Nationwide", label: "Coverage that travels with you across the country" },
-  { icon: <ClockIcon className="h-6 w-6" />, stat: "24/7", label: "Protected on the job and off — day or night" },
-  { icon: <HeadsetIcon className="h-6 w-6" />, stat: "Licensed agents", label: "Real people to guide you — never a sales bot" },
+  { icon: <SparkleIcon className="h-6 w-6" />, stat: "$40/mo", label: "One simple membership — or $336 a year" },
+  { icon: <VideoIcon className="h-6 w-6" />, stat: "$0", label: "24/7 telehealth & virtual primary care" },
+  { icon: <PillIcon className="h-6 w-6" />, stat: "Up to 80% off", label: "Brand-name & generic meds, 70,000+ pharmacies" },
+  { icon: <GlobeIcon className="h-6 w-6" />, stat: "50 states + PR", label: "Virtual care & savings networks nationwide" },
 ];
 
 export default function TrustBar(): ReactElement {
   return (
-    <section id="trust-bar" className="scroll-mt-24 border-y border-line bg-navy">
-      <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-px overflow-hidden px-4 sm:grid-cols-2 sm:px-8 lg:grid-cols-4">
+    <section id="trust-bar" className="scroll-mt-24 bg-navy">
+      <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-px px-4 sm:grid-cols-2 sm:px-8 lg:grid-cols-4">
         {ITEMS.map((item) => (
-          <div key={item.stat} className="flex items-start gap-3.5 py-6 sm:px-5 lg:px-6">
-            <span className="mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white/10 text-accent">
+          <div key={item.stat} className="flex items-start gap-3.5 py-7 sm:px-5 lg:px-6">
+            <span className="mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-cream/[0.07] text-teal-light">
               {item.icon}
             </span>
             <div>
-              <p className="font-display text-lg font-bold text-white">{item.stat}</p>
-              <p className="mt-0.5 text-[13px] leading-snug text-white/70">{item.label}</p>
+              <p className="font-serif text-2xl text-cream">{item.stat}</p>
+              <p className="mt-1 text-[13px] leading-snug text-cream/65">{item.label}</p>
             </div>
           </div>
         ))}

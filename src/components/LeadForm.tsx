@@ -3,10 +3,8 @@
 import { useCallback, useRef, useState, type ReactElement } from "react";
 import useMegaLeadForm from "@/hooks/useMegaLeadForm";
 import {
-  CONDITION_OPTIONS,
+  CONFIRM_OPTIONS,
   EMPTY_FORM,
-  INCOME_OPTIONS,
-  STATES,
   disqualificationReason,
   formatPhone,
   isQualified,
@@ -14,34 +12,45 @@ import {
   isValidPhone,
   type LeadFormData,
 } from "@/lib/form";
-import { CheckIcon, LockIcon, ShieldCheckIcon } from "./icons";
+import { CheckIcon, LockIcon, SparkleIcon } from "./icons";
 
 interface LeadFormProps {
   id: string;
+  cta?: string;
 }
 
 const INPUT_CLASS =
-  "w-full rounded-xl border border-line bg-white px-4 py-3 text-[15px] text-navy placeholder:text-muted/70 outline-none transition focus:border-primary focus:ring-4 focus:ring-primary/15";
+  "w-full rounded-xl border border-line bg-white px-4 py-3 text-[15px] text-navy placeholder:text-sage/70 outline-none transition focus:border-teal focus:ring-4 focus:ring-teal/15";
 
 type Errors = Partial<Record<"phone" | "email", string>>;
 
-function fireTrackingEvents(data: LeadFormData, qualified: boolean): void {
-  if (typeof window === "undefined") return;
-  const w = window as unknown as {
-    dataLayer?: Record<string, unknown>[];
-    fbq?: (...args: unknown[]) => void;
-    MegaTag?: { trackEvent?: (name: string, payload: Record<string, unknown>) => void };
-  };
-  w.dataLayer = w.dataLayer || [];
-  // Hard-floor event + campaign event — fires on every successful submission.
-  w.dataLayer.push({ event: "form_submission", lead_qualified: qualified, state: data.state });
-  w.dataLayer.push({ event: "form_submit", lead_qualified: qualified });
-  w.MegaTag?.trackEvent?.("form_submit", { ...data, qualified });
-  // Meta optimization event only for qualified leads.
-  if (qualified && typeof w.fbq === "function") w.fbq("track", "Lead");
+interface TrackingWindow {
+  dataLayer?: Record<string, unknown>[];
+  fbq?: (...args: unknown[]) => void;
+  MegaTag?: { trackEvent?: (name: string, payload: Record<string, unknown>) => void };
 }
 
-export default function LeadForm({ id }: LeadFormProps): ReactElement {
+function fireTrackingEvents(data: LeadFormData, qualified: boolean): void {
+  if (typeof window === "undefined") return;
+  const w = window as unknown as TrackingWindow;
+  w.dataLayer = w.dataLayer || [];
+  // Hard-floor + campaign events — fire for EVERY submission (qualified or not).
+  w.dataLayer.push({ event: "form_submission", lead_qualified: qualified });
+  w.dataLayer.push({ event: "form_submit", lead_qualified: qualified });
+  w.MegaTag?.trackEvent?.("form_submit", {
+    first_name: data.firstName,
+    last_name: data.lastName,
+    email: data.email,
+    qualified,
+  });
+  // Meta optimization events ONLY for qualified leads.
+  if (qualified) {
+    w.dataLayer.push({ event: "qualified_lead", lead_qualified: true });
+    if (typeof w.fbq === "function") w.fbq("track", "Lead");
+  }
+}
+
+export default function LeadForm({ id, cta = "Get Started" }: LeadFormProps): ReactElement {
   const { submit } = useMegaLeadForm();
   const [data, setData] = useState<LeadFormData>(EMPTY_FORM);
   const [errors, setErrors] = useState<Errors>({});
@@ -68,11 +77,9 @@ export default function LeadForm({ id }: LeadFormProps): ReactElement {
         lastName: data.lastName.trim(),
         email: data.email.trim(),
         phone: data.phone.replace(/\D/g, ""),
-        state: data.state,
-        income: data.income,
-        majorMedicalConditions: data.majorMedicalConditions,
+        membershipUnderstanding: data.membershipUnderstanding,
         qualified,
-        disqualification_reason: qualified ? "" : disqualificationReason(data),
+        disqualification_reason: disqualificationReason(data),
       });
       fireTrackingEvents(data, qualified);
     } catch {
@@ -87,23 +94,35 @@ export default function LeadForm({ id }: LeadFormProps): ReactElement {
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       if (submitting || submitted) return;
-      // Native `required`/`pattern` validity already blocked empty submits before this fires.
-      // Run the custom phone/email format checks; bail (no submit, no tracking) if any fail.
-      const nextErrors: Errors = {};
-      const phoneResult = isValidPhone(data.phone);
-      if (!phoneResult.valid) nextErrors.phone = phoneResult.error;
-      if (!isValidEmail(data.email)) nextErrors.email = "Please enter a valid email address";
-      setErrors(nextErrors);
-      if (Object.keys(nextErrors).length > 0) return;
       void runSubmit();
     },
-    [data.phone, data.email, submitting, submitted, runSubmit]
+    [submitting, submitted, runSubmit]
   );
 
-  if (submitted) return <SuccessPanel qualified={isQualified(data)} />;
+  // Validate-first, then requestSubmit() — never a raw type="submit".
+  const handleClick = useCallback(() => {
+    if (submitting || submitted) return;
+    const form = formRef.current;
+    if (!form) return;
+    // Native required/pattern constraints first — surfaces the browser UI and blocks empties.
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+    // Custom phone/email format checks; bail (no submit, no tracking) if any fail.
+    const nextErrors: Errors = {};
+    const phoneResult = isValidPhone(data.phone);
+    if (!phoneResult.valid) nextErrors.phone = phoneResult.error;
+    if (!isValidEmail(data.email)) nextErrors.email = "Please enter a valid email address";
+    setErrors(nextErrors);
+    if (Object.keys(nextErrors).length > 0) return;
+    form.requestSubmit();
+  }, [data.phone, data.email, submitting, submitted]);
+
+  if (submitted) return <SuccessPanel />;
 
   return (
-    <form ref={formRef} id={id} className="space-y-3.5" onSubmit={handleSubmit}>
+    <form ref={formRef} id={id} className="space-y-3.5" onSubmit={handleSubmit} noValidate>
       <div className="grid grid-cols-2 gap-3">
         <input
           name="firstName" type="text" required autoComplete="given-name" placeholder="First name"
@@ -132,36 +151,28 @@ export default function LeadForm({ id }: LeadFormProps): ReactElement {
           className={`${INPUT_CLASS} ${errors.phone ? "border-error focus:border-error focus:ring-error/15" : ""}`}
         />
         {errors.phone && <p className="mt-1.5 text-xs text-error">{errors.phone}</p>}
-        <p className="mt-2 text-[11px] leading-relaxed text-muted">
-          By providing your phone number and clicking submit, you agree to be contacted by a
-          licensed insurance agent by phone call, text message, and email at the number provided,
-          including via automated technology, for up to 90 days, even if your number is on a Do Not
-          Call list. Consent is not a condition of purchase. Message and data rates may apply.
-        </p>
-      </div>
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-        <SelectField
-          name="state" label="Select your state" value={data.state}
-          onChange={(v) => update("state", v)} options={STATES.map((s) => ({ value: s, label: s }))}
-        />
-        <SelectField
-          name="income" label="Estimated annual income" value={data.income}
-          onChange={(v) => update("income", v)} options={INCOME_OPTIONS}
-        />
       </div>
       <SelectField
-        name="majorMedicalConditions" label="Any major medical conditions?"
-        value={data.majorMedicalConditions} onChange={(v) => update("majorMedicalConditions", v)}
-        options={CONDITION_OPTIONS}
+        name="membershipUnderstanding"
+        label="Please confirm you understand that MedBlue is a healthcare membership, not health insurance."
+        value={data.membershipUnderstanding}
+        onChange={(v) => update("membershipUnderstanding", v)}
+        options={CONFIRM_OPTIONS}
       />
+      <p className="text-[11px] leading-relaxed text-sage">
+        By providing your phone number and clicking submit, you agree to be contacted by MedBlue by
+        phone call, text message, and email at the number provided — including via automated
+        technology and AI-assisted calls — for membership information, even if your number is on a
+        Do Not Call list. Consent is not a condition of purchase. Message and data rates may apply.
+      </p>
       <button
-        type="submit" disabled={submitting}
-        className="group relative flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-6 py-4 text-base font-bold text-white shadow-lg shadow-primary/25 transition hover:bg-primary-hover focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/30 disabled:cursor-not-allowed disabled:opacity-60"
+        type="button" onClick={handleClick} disabled={submitting}
+        className="group flex w-full items-center justify-center gap-2 rounded-full bg-navy px-6 py-4 text-base font-semibold text-cream shadow-lg shadow-navy/20 transition hover:bg-navy-hover focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-teal/40 disabled:cursor-not-allowed disabled:opacity-60"
       >
-        {submitting ? "Sending…" : "Get My Free Quote"}
+        {submitting ? "Sending…" : cta}
       </button>
-      <p className="flex items-center justify-center gap-1.5 text-center text-xs text-muted">
-        <LockIcon className="h-3.5 w-3.5" /> Secure &amp; confidential — no obligation, ever.
+      <p className="flex items-center justify-center gap-1.5 text-center text-xs text-sage">
+        <LockIcon className="h-3.5 w-3.5" /> Your information stays private. No spam, ever.
       </p>
     </form>
   );
@@ -181,15 +192,15 @@ function SelectField({ name, label, value, onChange, options }: SelectFieldProps
       <select
         name={name} required aria-label={label} value={value}
         onChange={(e) => onChange(e.target.value)}
-        className={`${INPUT_CLASS} appearance-none pr-10 ${value ? "text-navy" : "text-muted/70"}`}
+        className={`${INPUT_CLASS} appearance-none pr-10 ${value ? "text-navy" : "text-sage/70"}`}
       >
-        <option value="" disabled>{label}</option>
+        <option value="" disabled>I understand MedBlue is a membership, not insurance…</option>
         {options.map((opt) => (
           <option key={opt.value} value={opt.value} className="text-navy">{opt.label}</option>
         ))}
       </select>
       <svg
-        className="pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted"
+        className="pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-sage"
         viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden="true"
       >
         <path strokeLinecap="round" strokeLinejoin="round" d="m6 9 6 6 6-6" />
@@ -198,30 +209,30 @@ function SelectField({ name, label, value, onChange, options }: SelectFieldProps
   );
 }
 
-function SuccessPanel({ qualified }: { qualified: boolean }): ReactElement {
+function SuccessPanel(): ReactElement {
   return (
     <div className="flex flex-col items-center py-8 text-center">
-      <span className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-accent/12 text-accent">
-        <ShieldCheckIcon className="h-8 w-8" />
+      <span className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-teal-gradient text-white">
+        <SparkleIcon className="h-8 w-8" />
       </span>
-      <h3 className="text-xl font-bold text-navy">You&apos;re all set</h3>
-      <p className="mt-2 max-w-sm text-sm leading-relaxed text-body">
-        Thanks — a licensed agent will reach out shortly with your free, no-obligation quote.
-        {qualified ? " Based on your answers, you may qualify for our lowest-premium plans." : ""}{" "}
-        Want to talk now? Call{" "}
-        <a href="tel:+18885697765" className="font-semibold text-primary hover:underline">
-          1-888-569-7765
-        </a>
-        .
+      <h3 className="text-3xl text-navy">You&apos;re in.</h3>
+      <p className="mt-3 max-w-sm text-sm leading-relaxed text-body">
+        A MedBlue specialist will reach out shortly to walk you through your National Plan
+        membership and answer anything you&apos;re wondering about.
       </p>
-      <ul className="mt-5 space-y-2 text-left text-sm text-body">
-        {["No obligation and no pressure", "Coverage 24/7, on and off the job", "Plans starting at $189/month"].map(
-          (item) => (
-            <li key={item} className="flex items-center gap-2">
-              <CheckIcon className="h-4 w-4 text-accent" /> {item}
-            </li>
-          )
-        )}
+      <ul className="mt-6 space-y-2.5 text-left text-sm text-body">
+        {[
+          "Your membership is just $40/month",
+          "$0 24/7 telehealth, English & Spanish",
+          "Benefits activate 3 days after enrollment",
+        ].map((item) => (
+          <li key={item} className="flex items-center gap-2.5">
+            <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-teal-gradient text-white">
+              <CheckIcon className="h-3 w-3" />
+            </span>
+            {item}
+          </li>
+        ))}
       </ul>
     </div>
   );

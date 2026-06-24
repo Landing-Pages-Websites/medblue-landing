@@ -1,44 +1,29 @@
-/* ─── Lead-form constants + validation (PPO Exchange) ─── */
-
-export const STATES: string[] = [
-  "Alabama", "Arkansas", "Delaware", "Florida", "Georgia", "Indiana", "Iowa",
-  "Kansas", "Kentucky", "Louisiana", "Maryland", "Michigan", "Mississippi",
-  "Missouri", "Montana", "Nebraska", "Nevada", "North Carolina", "Ohio",
-  "Oklahoma", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah",
-  "Virginia", "West Virginia", "Wisconsin", "Wyoming",
-];
+/* ─── Lead-form constants + validation (MedBlue National Plan) ─── */
 
 export interface SelectOption {
   value: string;
   label: string;
 }
 
-/* Income options — under-threshold values are disqualifying. */
-export const INCOME_OPTIONS: SelectOption[] = [
-  { value: "Less than $40,000 (Individual)", label: "Less than $40,000 (Individual)" },
-  { value: "$40,000 or more (Individual)", label: "$40,000 or more (Individual)" },
-  { value: "Less than $75,000 (Household)", label: "Less than $75,000 (Household)" },
-  { value: "$75,000 or more (Household)", label: "$75,000 or more (Household)" },
+/* Qualifying confirmation — the visitor must confirm they understand MedBlue is a
+   membership, not insurance. "Yes" qualifies the lead; "No" disqualifies it (but the
+   lead still submits). */
+export const CONFIRM_YES = "Yes, I understand";
+export const CONFIRM_NO = "No, I do not understand";
+
+export const CONFIRM_OPTIONS: SelectOption[] = [
+  { value: CONFIRM_YES, label: CONFIRM_YES },
+  { value: CONFIRM_NO, label: CONFIRM_NO },
 ];
 
-export const QUALIFYING_INCOME: ReadonlySet<string> = new Set([
-  "$40,000 or more (Individual)",
-  "$75,000 or more (Household)",
-]);
-
-export const CONDITION_OPTIONS: SelectOption[] = [
-  { value: "No", label: "No" },
-  { value: "Yes", label: "Yes" },
-];
+export const DISQUALIFICATION_REASON = "did_not_confirm_membership_understanding";
 
 export interface LeadFormData {
   firstName: string;
   lastName: string;
   email: string;
   phone: string;
-  state: string;
-  income: string;
-  majorMedicalConditions: string;
+  membershipUnderstanding: string;
 }
 
 export const EMPTY_FORM: LeadFormData = {
@@ -46,22 +31,17 @@ export const EMPTY_FORM: LeadFormData = {
   lastName: "",
   email: "",
   phone: "",
-  state: "",
-  income: "",
-  majorMedicalConditions: "",
+  membershipUnderstanding: "",
 };
 
-/* A lead is qualified when income meets the threshold AND there are no major
-   medical conditions. Both qualified and disqualified leads still submit. */
+/* A lead is qualified only when the visitor confirms they understand MedBlue is a
+   membership. Both qualified and disqualified leads still POST. */
 export function isQualified(data: LeadFormData): boolean {
-  return QUALIFYING_INCOME.has(data.income) && data.majorMedicalConditions === "No";
+  return data.membershipUnderstanding === CONFIRM_YES;
 }
 
 export function disqualificationReason(data: LeadFormData): string {
-  const reasons: string[] = [];
-  if (data.income && !QUALIFYING_INCOME.has(data.income)) reasons.push("income_below_threshold");
-  if (data.majorMedicalConditions === "Yes") reasons.push("major_medical_conditions");
-  return reasons.join(",");
+  return isQualified(data) ? "" : DISQUALIFICATION_REASON;
 }
 
 export function formatPhone(value: string): string {

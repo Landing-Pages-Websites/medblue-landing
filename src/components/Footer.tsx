@@ -1,63 +1,37 @@
 import type { ReactElement } from "react";
 import Logo from "./Logo";
-import { PHONE_DISPLAY, PHONE_HREF } from "./Cta";
-import { PhoneIcon } from "./icons";
 
 export default function Footer(): ReactElement {
-  const year = new Date().getFullYear();
+  const year = 2026;
   return (
-    <footer className="border-t border-white/10 bg-navy py-12 text-white/70">
+    <footer className="bg-navy py-14 text-cream/70">
       <div className="mx-auto max-w-[1200px] px-4 sm:px-8">
-        <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
+        <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
           <div className="max-w-md">
             <Logo tone="light" />
-            <p className="mt-4 text-sm leading-relaxed text-white/55">
-              Affordable, nationwide health coverage built for people who work for themselves —
-              with plans starting at $189/month and licensed agents ready to help.
+            <p className="mt-5 text-sm leading-relaxed text-cream/55">
+              MedBlue is a healthcare membership built for the people of Houston who work for
+              themselves — simple, affordable everyday care for builders, makers, and doers.
             </p>
           </div>
-          <div className="shrink-0">
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/50">
-              Speak with a licensed agent
+          <div className="rounded-2xl border border-cream/15 bg-cream/[0.04] px-5 py-4 md:max-w-xs">
+            <p className="text-sm font-semibold uppercase tracking-[0.14em] text-teal-light">
+              Not Insurance
             </p>
-            <a
-              href={PHONE_HREF}
-              className="mt-2 inline-flex items-center gap-2 text-2xl font-extrabold text-white transition hover:text-accent"
-            >
-              <PhoneIcon className="h-6 w-6 text-accent" />
-              {PHONE_DISPLAY}
-            </a>
+            <p className="mt-2 text-sm leading-relaxed text-cream/70">
+              MedBlue is a healthcare membership, not health insurance. It is not a substitute for
+              major medical insurance.
+            </p>
           </div>
         </div>
 
-        <div className="mt-10 border-t border-white/10 pt-6 text-xs leading-relaxed text-white/45">
-          <div className="mb-4 flex items-center gap-2 text-white/55">
-            <a
-              href="https://leadclique.com/privacy"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="transition hover:text-white/80"
-            >
-              Privacy Policy
-            </a>
-            <span aria-hidden="true" className="text-white/30">
-              &middot;
-            </span>
-            <a
-              href="https://leadclique.com/terms"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="transition hover:text-white/80"
-            >
-              Terms of Service
-            </a>
-          </div>
+        <div className="mt-12 border-t border-cream/10 pt-6 text-xs leading-relaxed text-cream/45">
           <p>
-            &copy; {year} The Exchange. All rights reserved. This is a solicitation of insurance.
-            Coverage, availability, and pricing vary by plan and by state, and are determined during
-            your consultation with a licensed agent. Plans starting at $189/month are based on
-            eligibility; your rate depends on your individual situation. Submitting the form does not
-            guarantee coverage or a specific price.
+            &copy; {year} MedBlue. All rights reserved. MedBlue National Plan is a healthcare
+            membership, not health insurance, and is not a substitute for major medical insurance.
+            Membership is $40/month or $336/year. Member benefits activate three days after
+            enrollment. Savings figures reflect typical member pricing through MedBlue&apos;s partner
+            networks and may vary by provider and location.
           </p>
         </div>
       </div>

@@ -1,32 +1,31 @@
 @import "tailwindcss";
 
 @theme {
-  /* ── Brand palette (PPO Exchange) ── */
-  --color-primary: #0075c1;        /* trust blue — primary CTAs, links */
-  --color-primary-hover: #005a96;
-  --color-primary-active: #005287;
-  --color-navy: #0b2545;           /* secondary — headings, dark panels */
-  --color-accent: #1fa463;         /* savings green — non-text emphasis, large text */
-  --color-accent-hover: #18834f;
+  /* ── MedBlue brand palette (extracted from medblue.com) ── */
+  --color-navy: #082A3C;           /* primary ink — headings, dark panels, primary buttons */
+  --color-navy-hover: #0c3a52;     /* button hover */
+  --color-cream: #F4F4F0;          /* warm off-white page background */
+  --color-cream-deep: #ECECE4;     /* slightly deeper cream for alternating bands */
 
-  /* ── Neutrals ── */
-  --color-mist: #f5f8fc;           /* alternating light section bg */
-  --color-surface: #e6eef5;        /* soft blue cards / borders */
-  --color-body: #5b6b7b;           /* body copy on light */
-  --color-muted: #6b7280;
-  --color-line: #e5e7eb;           /* hairline borders */
+  --color-teal: #209DBB;           /* brand teal — accents, emphasis */
+  --color-teal-light: #2BCDB4;     /* brand teal-light — gradient top */
+
+  --color-sage: #71755F;           /* muted sage — secondary text */
+  --color-sage-light: #8F9478;     /* lighter sage */
+
+  --color-line: #D9DDD0;           /* warm hairline borders */
+  --color-body: #4a5a64;           /* body copy ink (softer than navy) */
 
   /* ── States ── */
-  --color-error: #d92d20;
-  --color-success: #12805c;
-  --color-disabled: #99c8e6;
+  --color-error: #c0392b;
+  --color-success: #1f8a6d;
 
   /* ── Type ── */
-  --font-display: var(--font-jakarta), "Plus Jakarta Sans", ui-sans-serif, sans-serif;
+  --font-serif: var(--font-instrument), ui-serif, Georgia, serif;  /* display headings */
   --font-body: var(--font-inter), "Inter", ui-sans-serif, sans-serif;
 
   /* ── Radii ── */
-  --radius-xl2: 1.25rem;
+  --radius-xl2: 1.5rem;
 }
 
 html {
@@ -34,7 +33,7 @@ html {
 }
 
 body {
-  background: #ffffff;
+  background: var(--color-cream);
   color: var(--color-navy);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
@@ -44,13 +43,25 @@ body {
 
 @layer base {
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-display);
-    font-weight: 700;
-    letter-spacing: -0.02em;
+    font-family: var(--font-serif);
+    font-weight: 400;            /* Instrument Serif is a single elegant weight */
+    letter-spacing: -0.01em;
     color: var(--color-navy);
+    line-height: 1.05;
   }
-  /* tighter optical tracking on the largest display sizes */
-  h1 { letter-spacing: -0.03em; }
+  h1 { letter-spacing: -0.02em; }
+  p { line-height: 1.6; }
+}
+
+/* Teal accent gradient — chips, icon tiles, checkmarks */
+.bg-teal-gradient {
+  background-image: linear-gradient(135deg, #2BCDB4, #209DBB);
+}
+.text-teal-gradient {
+  background-image: linear-gradient(135deg, #2BCDB4, #209DBB);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -62,15 +73,15 @@ body {
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--color-primary) 22%, white);
+  background: color-mix(in srgb, var(--color-teal) 22%, white);
   color: var(--color-navy);
 }
 
 ::-webkit-scrollbar { width: 10px; }
-::-webkit-scrollbar-track { background: var(--color-mist); }
+::-webkit-scrollbar-track { background: var(--color-cream); }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-surface);
+  background: var(--color-line);
   border-radius: 6px;
-  border: 2px solid var(--color-mist);
+  border: 2px solid var(--color-cream);
 }
-::-webkit-scrollbar-thumb:hover { background: #cfdcea; }
+::-webkit-scrollbar-thumb:hover { background: #c7ccba; }

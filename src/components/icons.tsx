@@ -230,3 +230,89 @@ export function MapPinIcon(props: IconProps): ReactElement {
     </Base>
   );
 }
+
+export function VideoIcon(props: IconProps): ReactElement {
+  return (
+    <Base {...props}>
+      <path d="m22 8-6 4 6 4V8Z" />
+      <rect width="14" height="12" x="2" y="6" rx="2" />
+    </Base>
+  );
+}
+
+export function ToothIcon(props: IconProps): ReactElement {
+  return (
+    <Base {...props}>
+      <path d="M12 5.5c-2-1.8-5.5-2-7-.5-1.7 1.7-1 5 0 8 .7 2 .8 4.5 1.5 6 .5 1 1.8 1 2.2-.2.5-1.6.6-3.8 1.3-3.8s.8 2.2 1.3 3.8c.4 1.2 1.7 1.2 2.2.2.7-1.5.8-4 1.5-6 1-3 1.7-6.3 0-8-1.5-1.5-5-1.3-7 .5Z" />
+    </Base>
+  );
+}
+
+export function FlaskIcon(props: IconProps): ReactElement {
+  return (
+    <Base {...props}>
+      <path d="M9 3h6" />
+      <path d="M10 3v6.3a1 1 0 0 1-.2.6L4.5 18a2 2 0 0 0 1.7 3h11.6a2 2 0 0 0 1.7-3l-5.3-8.1a1 1 0 0 1-.2-.6V3" />
+      <path d="M6.5 15h11" />
+    </Base>
+  );
+}
+
+export function ScanIcon(props: IconProps): ReactElement {
+  return (
+    <Base {...props}>
+      <path d="M3 7V5a2 2 0 0 1 2-2h2" />
+      <path d="M17 3h2a2 2 0 0 1 2 2v2" />
+      <path d="M21 17v2a2 2 0 0 1-2 2h-2" />
+      <path d="M7 21H5a2 2 0 0 1-2-2v-2" />
+      <path d="M7 12h10" />
+    </Base>
+  );
+}
+
+export function ReceiptIcon(props: IconProps): ReactElement {
+  return (
+    <Base {...props}>
+      <path d="M4 2v20l2-1.5L8 22l2-1.5L12 22l2-1.5L16 22l2-1.5L20 22V2l-2 1.5L16 2l-2 1.5L12 2l-2 1.5L8 2 6 3.5 4 2Z" />
+      <path d="M8 8h8M8 12h8" />
+    </Base>
+  );
+}
+
+export function CompassIcon(props: IconProps): ReactElement {
+  return (
+    <Base {...props}>
+      <circle cx="12" cy="12" r="10" />
+      <path d="m16.2 7.8-2.9 6.3-6.3 2.9 2.9-6.3 6.3-2.9Z" />
+    </Base>
+  );
+}
+
+export function UsersIcon(props: IconProps): ReactElement {
+  return (
+    <Base {...props}>
+      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+      <circle cx="9" cy="7" r="4" />
+      <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+    </Base>
+  );
+}
+
+export function UtensilsIcon(props: IconProps): ReactElement {
+  return (
+    <Base {...props}>
+      <path d="M3 2v7c0 1.1.9 2 2 2h0a2 2 0 0 0 2-2V2M5 2v20" />
+      <path d="M16 2a4 4 0 0 0-4 4v6h4m0-10v20" />
+    </Base>
+  );
+}
+
+export function CoffeeIcon(props: IconProps): ReactElement {
+  return (
+    <Base {...props}>
+      <path d="M17 8h1a4 4 0 0 1 0 8h-1" />
+      <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z" />
+      <path d="M6 2v3M10 2v3M14 2v3" />
+    </Base>
+  );
+}

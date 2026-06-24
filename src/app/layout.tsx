@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Inter } from "next/font/google";
+import { Instrument_Serif, Inter } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 
-const jakarta = Plus_Jakarta_Sans({
+const instrument = Instrument_Serif({
   subsets: ["latin"],
-  weight: ["500", "600", "700", "800"],
-  variable: "--font-jakarta",
+  weight: "400",
+  variable: "--font-instrument",
   display: "swap",
 });
 
@@ -18,22 +18,22 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Affordable Coverage for the Self-Employed — Plans From $189/mo | The Exchange",
+  title: "MedBlue National Plan — Healthcare For People Building Their Future",
   description:
-    "Real, nationwide health coverage built for people who work for themselves — plans starting at $189/month, covering you 24/7 on and off the job. Healthy? You could qualify for lower premiums and little-to-no deductible. Get a free, no-obligation quote from a licensed agent. Call 1-888-569-7765.",
+    "MedBlue National Plan is a healthcare membership for self-employed people in Houston — $40/month or $336/year. $0 24/7 telehealth, virtual primary care, plus dental, lab, imaging and pharmacy savings. Not insurance — a membership built for builders.",
   openGraph: {
-    title: "Coverage Built for the Self-Employed — From $189/mo | The Exchange",
+    title: "MedBlue National Plan — Healthcare For People Building Their Future",
     description:
-      "Nationwide coverage for contractors, realtors, sales pros, and small business owners. Plans from $189/month, 24/7 on and off the job. Free quote from a licensed agent. Call 1-888-569-7765.",
+      "A healthcare membership for Houston's gig workers, freelancers, and small business owners. $40/month. $0 24/7 telehealth and real savings on dental, labs, imaging and pharmacy. Not insurance.",
     type: "website",
   },
 };
 
-// MEGA Admin registered IDs (PPO Exchange)
-const SITE_ID = "4fb1708b-a1d4-4c2a-9451-2b272a52dd39";
-const SITE_KEY = "fq7p1qftus5fmgbg";
-const META_PIXEL_ID = "1756331059151753";
-const GTM_ID = "GTM-PRQKLNXR";
+// MEGA Admin registered IDs (MedBlue National Plan)
+const SITE_ID = "4450ba97-4120-49e4-954c-d0ac6f7a9c9e";
+const SITE_KEY = "mc8jd0xkrk3ivffh";
+const META_PIXEL_ID = "1368420204074027";
+const GTM_ID = "GTM-K9N93KJS";
 
 export default function RootLayout({
   children,
@@ -41,7 +41,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>): React.ReactElement {
   return (
-    <html lang="en" className={`h-full antialiased ${jakarta.variable} ${inter.variable}`}>
+    <html lang="en" className={`h-full antialiased ${instrument.variable} ${inter.variable}`}>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
 
@@ -59,7 +59,7 @@ export default function RootLayout({
           async
         />
       </head>
-      <body className="min-h-full flex flex-col bg-white text-navy">
+      <body className="min-h-full flex flex-col bg-cream text-navy">
         {children}
 
         {/* CTM universal call-tracking script */}

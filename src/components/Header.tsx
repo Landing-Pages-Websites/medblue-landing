@@ -2,7 +2,7 @@
 
 import { useEffect, useState, type ReactElement } from "react";
 import Logo from "./Logo";
-import { PhoneButton, QuoteButton } from "./Cta";
+import { CtaButton } from "./Cta";
 
 export default function Header(): ReactElement {
   const [scrolled, setScrolled] = useState(false);
@@ -17,17 +17,18 @@ export default function Header(): ReactElement {
   return (
     <header
       className={`sticky top-0 z-50 transition-all duration-300 ${
-        scrolled ? "border-b border-line bg-white/90 shadow-sm backdrop-blur-md" : "bg-white/0"
+        scrolled ? "border-b border-line bg-cream/90 shadow-[0_1px_20px_-12px_rgba(8,42,60,0.4)] backdrop-blur-md" : "bg-transparent"
       }`}
     >
-      <div className="mx-auto flex max-w-[1200px] items-center justify-between px-4 py-3 sm:px-8">
-        <a href="#hero" aria-label="The Exchange — home" className="rounded-lg focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/25">
+      <div className="mx-auto flex max-w-[1200px] items-center justify-between px-4 py-3.5 sm:px-8">
+        <a
+          href="#hero"
+          aria-label="MedBlue — home"
+          className="rounded-lg focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-teal/25"
+        >
           <Logo />
         </a>
-        <div className="flex items-center gap-3">
-          <PhoneButton variant="outline" className="hidden px-5 py-2.5 text-sm sm:inline-flex" />
-          <QuoteButton className="px-5 py-2.5 text-sm" label="Get My Free Quote" />
-        </div>
+        <CtaButton href="#hero" label="Get Started" className="px-5 py-2.5 text-sm" />
       </div>
     </header>
   );
