@@ -1,7 +1,8 @@
 import Image from "next/image";
 import type { ReactElement } from "react";
 import Reveal from "./Reveal";
-import { UtensilsIcon, CoffeeIcon } from "./icons";
+import Eyebrow from "./Eyebrow";
+import { UtensilsIcon, CoffeeIcon, ArrowRightIcon } from "./icons";
 
 const IDENTITIES: string[] = [
   "Tradespeople & contractors",
@@ -21,8 +22,8 @@ export default function WhoItsFor(): ReactElement {
       <div className="mx-auto max-w-[1200px] px-4 sm:px-8">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <Reveal>
-            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-teal">Who it&apos;s for</p>
-            <h2 className="mt-4 text-4xl text-navy sm:text-5xl">
+            <Eyebrow>Who it&apos;s for</Eyebrow>
+            <h2 className="text-h2 mt-4 text-navy">
               For the people who bet on themselves
             </h2>
             <p className="mt-5 text-lg leading-relaxed text-body">
@@ -43,11 +44,12 @@ export default function WhoItsFor(): ReactElement {
             <p className="mt-7 text-lg font-medium text-navy">
               If that sounds like you, you&apos;re exactly who we built this for.
             </p>
-            <div className="mt-10 flex flex-row flex-wrap items-center justify-center gap-4">
-              <a href="#get-started" className="rounded-full bg-navy px-7 py-3.5 text-[15px] font-semibold text-cream transition hover:bg-navy/90">
+            <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
+              <a href="#get-started" className="group inline-flex items-center gap-2 rounded-full bg-navy px-7 py-3.5 text-[15px] font-semibold text-cream shadow-lg shadow-navy/20 transition hover:bg-navy-hover focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-teal/40">
                 Get Started
+                <ArrowRightIcon className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
               </a>
-              <a href="#get-started" className="text-[15px] font-semibold text-navy underline underline-offset-4 hover:text-teal">
+              <a href="#get-started" className="rounded text-[15px] font-semibold text-navy underline underline-offset-4 transition hover:text-teal focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-teal/25">
                 Learn more
               </a>
             </div>

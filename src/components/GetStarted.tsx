@@ -2,6 +2,7 @@ import Image from "next/image";
 import type { ReactElement } from "react";
 import Reveal from "./Reveal";
 import LeadForm from "./LeadForm";
+import Eyebrow from "./Eyebrow";
 import { CheckIcon } from "./icons";
 
 const ASSURANCES: string[] = [
@@ -29,10 +30,8 @@ export default function GetStarted(): ReactElement {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-navy/85 via-navy/30 to-transparent" />
               <div className="absolute inset-x-0 bottom-0 p-7 sm:p-9">
-                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-teal-light">
-                  Get started today
-                </p>
-                <h2 className="mt-3 text-4xl text-cream sm:text-[44px]">
+                <Eyebrow tone="dark">Get started today</Eyebrow>
+                <h2 className="text-h2 mt-3 text-cream">
                   Healthcare that works as hard as you do
                 </h2>
               </div>
@@ -54,11 +53,11 @@ export default function GetStarted(): ReactElement {
             <div className="rounded-3xl border border-line bg-white p-5 shadow-[0_30px_70px_-30px_rgba(8,42,60,0.35)] sm:p-8">
               <div className="mb-5">
                 <div className="flex items-baseline gap-2">
-                  <span className="text-4xl text-navy">$40</span>
-                  <span className="text-sm font-medium text-sage">/month · or $336/year</span>
+                  <span className="font-serif text-[2.75rem] leading-none text-navy">$40</span>
+                  <span className="text-sm font-medium text-body">/month · or $336/year</span>
                 </div>
-                <h3 className="mt-2 text-2xl text-navy">Start your membership</h3>
-                <p className="mt-1.5 text-sm text-body">
+                <h3 className="mt-3 text-2xl text-navy">Start your membership</h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-body">
                   It takes a couple of minutes. A MedBlue specialist will reach out to walk you
                   through your National Plan.
                 </p>

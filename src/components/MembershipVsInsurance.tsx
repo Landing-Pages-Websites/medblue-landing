@@ -1,6 +1,7 @@
 import type { ReactElement } from "react";
 import Reveal from "./Reveal";
-import { CheckIcon } from "./icons";
+import Eyebrow from "./Eyebrow";
+import { CheckIcon, ArrowRightIcon } from "./icons";
 
 const MEDBLUE_POINTS: string[] = [
   "$0 24/7 telehealth & virtual primary care",
@@ -20,11 +21,9 @@ export default function MembershipVsInsurance(): ReactElement {
   return (
     <section id="membership-vs-insurance" className="scroll-mt-24 bg-navy py-20 text-cream sm:py-28">
       <div className="mx-auto max-w-[1200px] px-4 sm:px-8">
-        <Reveal className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.16em] text-teal-light">
-            The honest comparison
-          </p>
-          <h2 className="mt-4 text-4xl text-cream sm:text-5xl">
+        <Reveal className="mx-auto flex max-w-2xl flex-col items-center text-center">
+          <Eyebrow tone="dark">The honest comparison</Eyebrow>
+          <h2 className="text-h2 mt-4 text-cream">
             Healthcare without the complexity
           </h2>
           <p className="mt-5 text-lg leading-relaxed text-cream/70">
@@ -86,11 +85,12 @@ export default function MembershipVsInsurance(): ReactElement {
           </p>
         </Reveal>
 
-        <div className="mt-10 flex flex-row flex-wrap items-center justify-center gap-4">
-          <a href="#get-started" className="rounded-full bg-cream px-7 py-3.5 text-[15px] font-semibold text-navy transition hover:bg-white">
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
+          <a href="#get-started" className="group inline-flex items-center gap-2 rounded-full bg-cream px-7 py-3.5 text-[15px] font-semibold text-navy shadow-lg shadow-black/20 transition hover:bg-white focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cream/50">
             Get Started
+            <ArrowRightIcon className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
           </a>
-          <a href="#get-started" className="text-[15px] font-semibold text-cream underline underline-offset-4 hover:text-teal-light">
+          <a href="#get-started" className="rounded text-[15px] font-semibold text-cream underline underline-offset-4 transition hover:text-teal-light focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cream/30">
             Learn more
           </a>
         </div>

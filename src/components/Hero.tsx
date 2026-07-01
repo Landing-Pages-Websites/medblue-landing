@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { ReactElement } from "react";
 import LeadForm from "./LeadForm";
+import Eyebrow from "./Eyebrow";
 import { CheckIcon, GlobeIcon, VideoIcon, HeartPulseIcon } from "./icons";
 
 const HERO_POINTS: { icon: ReactElement; text: string }[] = [
@@ -18,31 +19,29 @@ export default function Hero(): ReactElement {
         <div className="absolute right-[-12%] top-1/4 h-[460px] w-[460px] rounded-full bg-teal-light/10 blur-3xl" />
       </div>
 
-      <div className="mx-auto grid max-w-[1200px] gap-x-12 gap-y-10 px-4 pb-16 pt-8 sm:px-8 lg:grid-cols-12 lg:grid-rows-[auto_1fr] lg:pb-24 lg:pt-12">
+      <div className="mx-auto grid max-w-[1200px] gap-x-14 gap-y-8 px-4 pb-16 pt-5 sm:px-8 sm:pt-8 lg:grid-cols-12 lg:grid-rows-[auto_1fr] lg:gap-y-12 lg:pb-24 lg:pt-14">
         {/* A — headline block */}
         <div className="lg:col-span-7 lg:col-start-1 lg:row-start-1">
-          <div className="flex flex-wrap items-center gap-2.5">
-            <span className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-3.5 py-1.5 text-[13px] font-semibold text-sage">
-              <span className="h-1.5 w-1.5 rounded-full bg-teal-gradient" />
-              Houston&apos;s National Plan membership
-            </span>
-            {/* MANDATORY legal disclaimer — above the fold, legible */}
-            <span className="block w-full rounded-xl bg-navy px-4 py-2.5 text-[13px] font-semibold leading-snug text-cream sm:text-sm">
-              NOT INSURANCE — This is a healthcare membership, not health insurance.
-            </span>
-          </div>
+          <Eyebrow>Houston&apos;s National Plan membership</Eyebrow>
+          {/* MANDATORY legal disclaimer — above the fold, legible */}
+          <p className="mt-4 flex items-center gap-2.5 rounded-xl bg-navy px-4 py-2.5 text-[13px] font-semibold leading-snug text-cream sm:text-sm">
+            <span className="hidden h-1.5 w-1.5 shrink-0 rounded-full bg-teal-light sm:block" aria-hidden="true" />
+            NOT INSURANCE — This is a healthcare membership, not health insurance.
+          </p>
 
-          <h1 className="mt-6 text-[42px] leading-[1.02] text-navy sm:text-[58px] lg:text-[66px]">
+          <h1 className="text-display mt-5 text-navy">
             Healthcare For People Building Their Future
           </h1>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-body">
+          <p className="mt-5 max-w-xl text-lg leading-relaxed text-body">
             The MedBlue National Plan is a healthcare membership for the people who bet on
             themselves — just{" "}
             <span className="font-semibold text-navy">$40/month</span> or{" "}
             <span className="font-semibold text-navy">$336/year</span>. Free 24/7 virtual care,
             a primary care provider, and real savings on the everyday stuff.
           </p>
-          <ul className="mt-7 flex flex-wrap gap-x-6 gap-y-3">
+          {/* Full hooks belong on desktop; on mobile they'd push the form below the fold
+              (the trust bar restates them just below). */}
+          <ul className="mt-8 hidden flex-wrap gap-x-6 gap-y-3 lg:flex">
             {HERO_POINTS.map((p) => (
               <li key={p.text} className="inline-flex items-center gap-2 text-[15px] font-semibold text-navy">
                 <span className="flex h-6 w-6 items-center justify-center rounded-full bg-teal-gradient text-white">
@@ -56,14 +55,14 @@ export default function Hero(): ReactElement {
 
         {/* B — lead form (right rail on desktop; right under the headline on mobile) */}
         <div className="lg:col-span-5 lg:col-start-8 lg:row-span-2 lg:row-start-1 lg:self-start">
-          <div className="rounded-3xl border border-line bg-white/80 p-5 shadow-[0_30px_70px_-30px_rgba(8,42,60,0.35)] backdrop-blur-sm sm:p-7">
+          <div className="rounded-3xl border border-line bg-white p-5 shadow-[0_40px_80px_-32px_rgba(8,42,60,0.4)] sm:p-7">
             <div className="mb-5">
               <div className="flex items-baseline gap-2">
-                <span className="text-4xl text-navy">$40</span>
-                <span className="text-sm font-medium text-sage">/month · or $336/year</span>
+                <span className="font-serif text-[2.75rem] leading-none text-navy">$40</span>
+                <span className="text-sm font-medium text-body">/month · or $336/year</span>
               </div>
-              <h2 className="mt-2 text-2xl text-navy">See your National Plan</h2>
-              <p className="mt-1.5 text-sm text-body">
+              <h2 className="mt-3 text-2xl text-navy">See your National Plan</h2>
+              <p className="mt-1.5 text-sm leading-relaxed text-body">
                 Start your membership in minutes. A MedBlue specialist will walk you through it.
               </p>
             </div>
@@ -72,27 +71,27 @@ export default function Hero(): ReactElement {
         </div>
 
         {/* C — hero photograph + floating price badge */}
-        <div className="lg:col-span-7 lg:col-start-1 lg:row-start-2 lg:self-end">
+        <div className="mt-1 lg:col-span-7 lg:col-start-1 lg:row-start-2 lg:mt-0 lg:self-end">
           <div className="relative">
-            <div className="overflow-hidden rounded-3xl shadow-[0_30px_70px_-32px_rgba(8,42,60,0.5)]">
+            <div className="overflow-hidden rounded-3xl shadow-[0_40px_80px_-34px_rgba(8,42,60,0.55)] ring-1 ring-navy/5">
               <Image
                 src="/images/hero-houston.jpg"
                 alt="A self-employed Houston contractor by his pickup at golden hour"
                 width={1600}
                 height={914}
                 priority
-                sizes="(max-width: 1024px) 100vw, 680px"
+                sizes="(max-width: 1024px) 100vw, 640px"
                 className="h-full w-full object-cover"
               />
             </div>
             {/* floating price badge */}
-            <div className="absolute -bottom-5 left-5 flex items-center gap-3 rounded-2xl border border-line bg-cream px-4 py-3 shadow-xl">
+            <div className="absolute -bottom-5 left-5 flex items-center gap-3 rounded-2xl border border-line bg-cream px-4 py-3 shadow-[0_20px_40px_-18px_rgba(8,42,60,0.45)]">
               <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-teal-gradient text-white">
                 <CheckIcon className="h-5 w-5" />
               </span>
               <div className="leading-tight">
-                <p className="text-[22px] font-bold text-navy">$40<span className="text-sm font-semibold text-body">/mo</span></p>
-                <p className="text-[11px] font-semibold uppercase tracking-wide text-sage">Or $336 a year</p>
+                <p className="font-serif text-[26px] leading-none text-navy">$40<span className="font-body text-sm font-semibold text-body">/mo</span></p>
+                <p className="mt-1 text-[11px] font-semibold uppercase tracking-wide text-body/70">Or $336 a year</p>
               </div>
             </div>
           </div>

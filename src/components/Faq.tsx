@@ -2,7 +2,8 @@
 
 import { useState, type ReactElement } from "react";
 import Reveal from "./Reveal";
-import { ChevronDownIcon } from "./icons";
+import Eyebrow from "./Eyebrow";
+import { ChevronDownIcon, ArrowRightIcon } from "./icons";
 
 const FAQS: { q: string; a: string }[] = [
   {
@@ -37,9 +38,9 @@ export default function Faq(): ReactElement {
   return (
     <section id="faq" className="scroll-mt-24 bg-cream py-20 sm:py-28">
       <div className="mx-auto max-w-3xl px-4 sm:px-8">
-        <Reveal className="text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.16em] text-teal">Questions, answered</p>
-          <h2 className="mt-4 text-4xl text-navy sm:text-5xl">
+        <Reveal className="flex flex-col items-center text-center">
+          <Eyebrow>Questions, answered</Eyebrow>
+          <h2 className="text-h2 mt-4 text-navy">
             The honest answers
           </h2>
         </Reveal>
@@ -82,11 +83,12 @@ export default function Faq(): ReactElement {
           })}
         </div>
 
-        <div className="mt-12 flex flex-row flex-wrap items-center justify-center gap-4">
-          <a href="#get-started" className="rounded-full bg-navy px-7 py-3.5 text-[15px] font-semibold text-cream transition hover:bg-navy/90">
+        <div className="mt-12 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
+          <a href="#get-started" className="group inline-flex items-center gap-2 rounded-full bg-navy px-7 py-3.5 text-[15px] font-semibold text-cream shadow-lg shadow-navy/20 transition hover:bg-navy-hover focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-teal/40">
             Get Started
+            <ArrowRightIcon className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
           </a>
-          <a href="#get-started" className="text-[15px] font-semibold text-navy underline underline-offset-4 hover:text-teal">
+          <a href="#get-started" className="rounded text-[15px] font-semibold text-navy underline underline-offset-4 transition hover:text-teal focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-teal/25">
             Learn more
           </a>
         </div>

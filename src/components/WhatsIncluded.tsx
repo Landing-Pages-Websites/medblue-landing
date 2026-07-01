@@ -1,9 +1,10 @@
 import Image from "next/image";
 import type { ReactElement } from "react";
 import Reveal from "./Reveal";
+import Eyebrow from "./Eyebrow";
 import {
   VideoIcon, HeartPulseIcon, ToothIcon, FlaskIcon,
-  ScanIcon, PillIcon, ReceiptIcon, CompassIcon, CheckIcon,
+  ScanIcon, PillIcon, ReceiptIcon, CompassIcon, CheckIcon, ArrowRightIcon,
 } from "./icons";
 
 const BENEFITS: { icon: ReactElement; name: string; figure: string; desc: string }[] = [
@@ -47,8 +48,8 @@ export default function WhatsIncluded(): ReactElement {
       <div className="mx-auto max-w-[1200px] px-4 sm:px-8">
         <div className="grid items-end gap-10 lg:grid-cols-12">
           <Reveal className="lg:col-span-6">
-            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-teal">What&apos;s included</p>
-            <h2 className="mt-4 text-4xl text-navy sm:text-5xl">
+            <Eyebrow>What&apos;s included</Eyebrow>
+            <h2 className="text-h2 mt-4 text-navy">
               Everything you need for the everyday
             </h2>
             <p className="mt-5 max-w-xl text-lg leading-relaxed text-body">
@@ -79,8 +80,11 @@ export default function WhatsIncluded(): ReactElement {
                   {b.icon}
                 </span>
                 <h3 className="mt-5 text-xl text-navy">{b.name}</h3>
-                <p className="mt-1.5 inline-flex items-center gap-1.5 text-sm font-semibold text-teal">
-                  <CheckIcon className="h-4 w-4" /> {b.figure}
+                <p className="mt-2 inline-flex items-center gap-1.5 text-sm font-semibold text-navy">
+                  <span className="flex h-4 w-4 items-center justify-center rounded-full bg-teal-gradient text-white">
+                    <CheckIcon className="h-2.5 w-2.5" />
+                  </span>
+                  {b.figure}
                 </p>
                 <p className="mt-3 text-sm leading-relaxed text-body">{b.desc}</p>
               </article>
@@ -89,16 +93,17 @@ export default function WhatsIncluded(): ReactElement {
         </div>
 
         <Reveal className="mt-8">
-          <p className="text-center text-sm text-sage">
+          <p className="text-center text-sm text-body">
             Member benefits activate 3 days after enrollment.
           </p>
         </Reveal>
 
-        <div className="mt-10 flex flex-row flex-wrap items-center justify-center gap-4">
-          <a href="#get-started" className="rounded-full bg-navy px-7 py-3.5 text-[15px] font-semibold text-cream transition hover:bg-navy/90">
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
+          <a href="#get-started" className="group inline-flex items-center gap-2 rounded-full bg-navy px-7 py-3.5 text-[15px] font-semibold text-cream shadow-lg shadow-navy/20 transition hover:bg-navy-hover focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-teal/40">
             Get Started
+            <ArrowRightIcon className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
           </a>
-          <a href="#get-started" className="text-[15px] font-semibold text-navy underline underline-offset-4 hover:text-teal">
+          <a href="#get-started" className="rounded text-[15px] font-semibold text-navy underline underline-offset-4 transition hover:text-teal focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-teal/25">
             Learn more
           </a>
         </div>
