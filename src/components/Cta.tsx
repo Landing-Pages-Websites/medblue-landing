@@ -1,6 +1,8 @@
 import type { ReactElement } from "react";
 import { ArrowRightIcon } from "./icons";
 
+export const SIGNUP_URL = "https://www.medblue.com/national/sign-up";
+
 interface CtaButtonProps {
   className?: string;
   label?: string;
@@ -14,7 +16,7 @@ interface CtaButtonProps {
 export function CtaButton({
   className = "",
   label = "Get Started",
-  href = "#get-started",
+  href = SIGNUP_URL,
   variant = "solid",
   withArrow = false,
 }: CtaButtonProps): ReactElement {

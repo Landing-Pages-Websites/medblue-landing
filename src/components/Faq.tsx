@@ -3,6 +3,7 @@
 import { useState, type ReactElement } from "react";
 import Reveal from "./Reveal";
 import Eyebrow from "./Eyebrow";
+import { SIGNUP_URL } from "./Cta";
 import { ChevronDownIcon, ArrowRightIcon } from "./icons";
 
 const FAQS: { q: string; a: string }[] = [
@@ -84,7 +85,7 @@ export default function Faq(): ReactElement {
         </div>
 
         <div className="mt-12 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
-          <a href="#get-started" className="group inline-flex items-center gap-2 rounded-full bg-navy px-7 py-3.5 text-[15px] font-semibold text-cream shadow-lg shadow-navy/20 transition hover:bg-navy-hover focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-teal/40">
+          <a href={SIGNUP_URL} className="group inline-flex items-center gap-2 rounded-full bg-navy px-7 py-3.5 text-[15px] font-semibold text-cream shadow-lg shadow-navy/20 transition hover:bg-navy-hover focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-teal/40">
             Get Started
             <ArrowRightIcon className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
           </a>

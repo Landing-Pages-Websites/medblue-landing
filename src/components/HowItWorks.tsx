@@ -1,6 +1,7 @@
 import type { ReactElement } from "react";
 import Reveal from "./Reveal";
 import Eyebrow from "./Eyebrow";
+import { SIGNUP_URL } from "./Cta";
 import { SparkleIcon, ClockIcon, HeartPulseIcon, ArrowRightIcon } from "./icons";
 
 const STEPS: { icon: ReactElement; title: string; body: string }[] = [
@@ -53,7 +54,7 @@ export default function HowItWorks(): ReactElement {
         </ol>
 
         <div className="mt-14 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
-          <a href="#get-started" className="group inline-flex items-center gap-2 rounded-full bg-cream px-7 py-3.5 text-[15px] font-semibold text-navy shadow-lg shadow-black/20 transition hover:bg-white focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cream/50">
+          <a href={SIGNUP_URL} className="group inline-flex items-center gap-2 rounded-full bg-cream px-7 py-3.5 text-[15px] font-semibold text-navy shadow-lg shadow-black/20 transition hover:bg-white focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cream/50">
             Get Started
             <ArrowRightIcon className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
           </a>

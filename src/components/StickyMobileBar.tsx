@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, type ReactElement } from "react";
+import { SIGNUP_URL } from "./Cta";
 
 const SHOW_AFTER_PX = 640;
 
@@ -43,7 +44,7 @@ export default function StickyMobileBar(): ReactElement {
             <p className="text-[11px] text-sage">National Plan</p>
           </div>
           <a
-            href="#hero"
+            href={SIGNUP_URL}
             className="flex flex-1 items-center justify-center rounded-full bg-navy px-4 py-3 text-sm font-semibold text-cream shadow-md shadow-navy/20 transition active:scale-[0.98]"
           >
             Get Started
@@ -58,7 +59,7 @@ export default function StickyMobileBar(): ReactElement {
         }`}
       >
         <a
-          href="#get-started"
+          href={SIGNUP_URL}
           className="flex items-center gap-2 rounded-full bg-navy px-6 py-3.5 text-[15px] font-semibold text-cream shadow-lg shadow-navy/25 transition hover:bg-navy/90"
         >
           Get Started

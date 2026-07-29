@@ -2,7 +2,7 @@
 
 import { useEffect, useState, type ReactElement } from "react";
 import Logo from "./Logo";
-import { CtaButton } from "./Cta";
+import { CtaButton, SIGNUP_URL } from "./Cta";
 
 export default function Header(): ReactElement {
   const [scrolled, setScrolled] = useState(false);
@@ -28,7 +28,7 @@ export default function Header(): ReactElement {
         >
           <Logo />
         </a>
-        <CtaButton href="#hero" label="Get Started" className="px-5 py-2.5 text-sm" />
+        <CtaButton href={SIGNUP_URL} label="Get Started" className="px-5 py-2.5 text-sm" />
       </div>
     </header>
   );
