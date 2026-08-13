@@ -94,17 +94,13 @@ export default function LeadForm({ id, cta = "Get Started" }: LeadFormProps): Re
     }
   }, [data, submit]);
 
-  const handleSubmit = useCallback(
-    (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      if (submitting || submitted) return;
-      void runSubmit();
-    },
-    [submitting, submitted, runSubmit]
-  );
+  // Native submit is neutralized: no request starts here, so a stray submit cannot double-fire.
+  const handleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  }, []);
 
-  // Validate-first, then requestSubmit() — never a raw type="submit".
-  const handleClick = useCallback(() => {
+  // Validate-first, then run the submit directly. No native submit dispatch, no submit-typed button.
+  const validateAndSubmit = useCallback(() => {
     if (submitting || submitted) return;
     const form = formRef.current;
     if (!form) return;
@@ -120,13 +116,24 @@ export default function LeadForm({ id, cta = "Get Started" }: LeadFormProps): Re
     if (!isValidEmail(data.email)) nextErrors.email = "Please enter a valid email address";
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) return;
-    form.requestSubmit();
-  }, [data.phone, data.email, submitting, submitted]);
+    void runSubmit();
+  }, [data.phone, data.email, submitting, submitted, runSubmit]);
+
+  // Enter-to-submit without a native submit event: same validate-first path, textarea excepted.
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLFormElement>) => {
+      if (e.key !== "Enter") return;
+      if ((e.target as HTMLElement).tagName === "TEXTAREA") return;
+      e.preventDefault();
+      validateAndSubmit();
+    },
+    [validateAndSubmit]
+  );
 
   if (submitted) return <SuccessPanel />;
 
   return (
-    <form ref={formRef} id={id} className="space-y-3.5" onSubmit={handleSubmit} noValidate>
+    <form ref={formRef} id={id} className="space-y-3.5" onSubmit={handleSubmit} onKeyDown={handleKeyDown} noValidate>
       <div className="grid grid-cols-2 gap-3">
         <input
           name="firstName" type="text" required autoComplete="given-name" placeholder="First name"
@@ -175,7 +182,7 @@ export default function LeadForm({ id, cta = "Get Started" }: LeadFormProps): Re
         </p>
       )}
       <button
-        type="button" onClick={handleClick} disabled={submitting}
+        type="button" onClick={validateAndSubmit} disabled={submitting}
         className="group flex w-full items-center justify-center gap-2 rounded-full bg-navy px-6 py-4 text-base font-semibold text-cream shadow-lg shadow-navy/20 transition hover:bg-navy-hover focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-teal/40 disabled:cursor-not-allowed disabled:opacity-60"
       >
         {submitting ? "Sending…" : cta}
