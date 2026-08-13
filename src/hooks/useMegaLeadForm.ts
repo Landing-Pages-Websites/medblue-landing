@@ -172,7 +172,11 @@ export const useMegaLeadForm = (): UseMegaLeadFormReturn => {
         throw new Error(`Submission failed: ${response.status}`);
       }
 
-      return { ok: true, id: (await response.json()).id };
+      const json = await response.json();
+      if (!json || json.ok !== true) {
+        throw new Error(`Submission rejected: ${JSON.stringify(json)?.slice(0, 200)}`);
+      }
+      return json;
     },
     []
   );

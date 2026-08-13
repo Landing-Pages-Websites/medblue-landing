@@ -54,6 +54,7 @@ export default function LeadForm({ id, cta = "Get Started" }: LeadFormProps): Re
   const { submit } = useMegaLeadForm();
   const [data, setData] = useState<LeadFormData>(EMPTY_FORM);
   const [errors, setErrors] = useState<Errors>({});
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
@@ -69,10 +70,11 @@ export default function LeadForm({ id, cta = "Get Started" }: LeadFormProps): Re
     if (lockRef.current) return;
     lockRef.current = true;
     setSubmitting(true);
+    setSubmitError(null);
     const qualified = isQualified(data);
     try {
       // EVERY submission is a lead — qualified or not — and must POST.
-      await submit({
+      const res = await submit({
         firstName: data.firstName.trim(),
         lastName: data.lastName.trim(),
         email: data.email.trim(),
@@ -81,12 +83,14 @@ export default function LeadForm({ id, cta = "Get Started" }: LeadFormProps): Re
         qualified,
         disqualification_reason: disqualificationReason(data),
       });
+      if (res?.ok !== true) throw new Error("Submission was not confirmed by the server.");
       fireTrackingEvents(data, qualified);
+      setSubmitted(true);
     } catch {
-      // The lead attempt was made; still confirm to the visitor.
+      setSubmitError("Something went wrong and your request was not sent. Please try again.");
     } finally {
       setSubmitting(false);
-      setSubmitted(true);
+      lockRef.current = false;
     }
   }, [data, submit]);
 
@@ -165,6 +169,11 @@ export default function LeadForm({ id, cta = "Get Started" }: LeadFormProps): Re
         technology and AI-assisted calls — for membership information, even if your number is on a
         Do Not Call list. Consent is not a condition of purchase. Message and data rates may apply.
       </p>
+      {submitError && (
+        <p role="alert" aria-live="polite" className="text-sm text-error">
+          {submitError}
+        </p>
+      )}
       <button
         type="button" onClick={handleClick} disabled={submitting}
         className="group flex w-full items-center justify-center gap-2 rounded-full bg-navy px-6 py-4 text-base font-semibold text-cream shadow-lg shadow-navy/20 transition hover:bg-navy-hover focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-teal/40 disabled:cursor-not-allowed disabled:opacity-60"
